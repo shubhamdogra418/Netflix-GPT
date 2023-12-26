@@ -25,7 +25,7 @@
     - logic page redirection
     - profile picture updation
 - unsubscribe the onAuthStateChanged callback
-- use constants in constant file
+- use constants in constant file (mostly hardcoded values)
 - create TMDB app, get Data
 - get data from TMDB now playing movies
 - updated the store with the movies
