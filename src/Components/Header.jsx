@@ -3,15 +3,38 @@ import { auth } from '../utils/Firebase';
 import { signOut } from 'firebase/auth';
 import {Logo, avatar } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
+import { Link } from 'react-router-dom';
+import { toggleGptSearchView } from '../utils/gptSlice';
+import Lang from '../utils/langConstants';
+import { Supported_Langs } from '../utils/constants';
+import { changeLanguage } from '../utils/configSlice';
+
 
 const Header = () => {
+
+  const langKey =useSelector((store)=> store.config.lang);
   const dispatch= useDispatch();
   const navigate= useNavigate();
   const user= useSelector((store)=> store.user);
+  const showGptSearch= useSelector((store)=>store.gpt.showGptSearch);
+
+
+  const goHome=()=> {
+    <Link to="/" />
+    console.log("working or not");
+  }
+
+  const handleGptSearchView =()=> {
+    dispatch (toggleGptSearchView());
+  }
+
+  const handleLangChange =(e)=>{
+    dispatch(changeLanguage(e.target.value));
+    // console.log(e.target.value);
+  }
 
   const handleSignOut =()=> {
 
@@ -51,14 +74,31 @@ const Header = () => {
 
   return (
     <div className=' flex justify-between absolute w-screen px-20 py-2 bg-gradient-to-b from-black z-10'>
-        <img className='w-44 cursor-pointer' src={Logo} alt="Logo"/>
+        <img onClick={goHome} className='w-44 cursor-pointer' src={Logo} alt="Logo"/>
         { user &&
-        <div className='flex'> 
-            <img className='mr-5 w-11 h-10 mt-4 cursor-pointer' src={avatar}/>
+        <div className='flex p-2'> 
+
+            {/* { showGptSearch &&  */}
+              <select 
+                className='px-3 m-4 py-2 mr-4 rounded-md bg-gray-900 text-white font-bold'
+                onChange={handleLangChange}    
+            >
+                {Supported_Langs.map((lang)=> <option value={lang.identifier}> {lang.name}</option>)}
+            </select> 
+            {/* } */}
+        
+            <button
+                onClick={handleGptSearchView}   
+                className='bg-purple-800 text-white font-bold px-3 m-4 py-2 mr-4 hover:bg-purple-600 rounded-md '> 
+                { showGptSearch ? Lang[langKey].home : Lang[langKey].gptSearch }
+            </button>
+        
+            <img className='mr-5 w-8 h-8 mt-5 cursor-pointer' src={avatar}/>
+        
             <button 
                 onClick={handleSignOut}
-                className='text-white bg-red-600 h-10 w-28 mt-4 font-bold rounded-md'> 
-                Sign Out
+                className='text-white bg-red-600 h-10 w-24 mt-4 font-bold rounded-md'> 
+                {Lang[langKey].signout}
             </button>
         </div>
         }

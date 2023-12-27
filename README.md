@@ -32,6 +32,15 @@
 - Building Browse Page
 - Video Title Page
 - Video Background Page
+- Secondary container
+- Movie List
+- Movie Cards-- tags using different APIs
+- Intro to GPT
+- Buildig AI GPT search Page/ component
+- Multi-Languages Feature
+    - Push Languages data into Redux
+- Never push console.logs in Production code
+- OPEN AI feature
 
 
 # Guide 
