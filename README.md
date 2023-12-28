@@ -40,7 +40,11 @@
 - Multi-Languages Feature
     - Push Languages data into Redux
 - Never push console.logs in Production code
-- OPEN AI feature
+- Get OPEN GPT AI feature
+- Buildig GPT Movie Suggestions
+- Reusability of Components
+- Securing the API keys >> .env file (REACT_APP)
+- Memoization of data in the app (OPTIMIZATION)
 
 
 # Guide 
